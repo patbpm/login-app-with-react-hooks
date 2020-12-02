@@ -1,25 +1,71 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
+
 import './App.css';
 
-function App() {
+type State = {
+  username: string
+  password:  string
+  
+};
+
+const App = () => {
+  const [state , setState] = useState({
+    email : "",
+    password : ""
+})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="row justify-content-center">
+          <div className="col-lg-4 col-md-6 col-sm-8">
+            <div className="card">
+              <div className="card-body">
+                <h3 className="card-title text-center">LOG APP</h3>
+                <form >
+                  
+                  <div className="form-group text-left">
+                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <input type="email" 
+                            className="form-control" 
+                            id="email" 
+                            placeholder="Enter email" 
+                    />
+                    
+                  </div>
+                <div className="form-group text-left">
+                  <label htmlFor="exampleInputPassword1">Password</label>
+                  <input type="password" 
+                          className="form-control" 
+                          id="password" 
+                          placeholder="Password"
+                          
+                  />
+                </div>
+                <div className="form-check">
+                </div>
+                <button 
+                      type="submit" 
+                      className="btn btn-primary"
+                      
+                >OK</button>
+                <small className="form-text text-muted">Wrong Message</small>
+                <hr/>
+                <button 
+                      type="submit" 
+                      className="btn btn-primary"
+                      
+                >Clear</button>
+                  
+                </form>
+              </div>
+              <div className="card-footer text-muted text-center">
+                This My Login App for react Hook projects <a href="https://github.com/patbpm/login-app-with-react-hooks">Github Repo</a>
+              </div>
+            </div>
+            <div className="text-center py-2">
+              
+            </div>
+          </div>
     </div>
+    
   );
 }
 
