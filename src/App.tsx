@@ -17,7 +17,7 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [helperText, setHelperText] = useState('');
 
   const validateUsername = (target:any) => {
@@ -27,7 +27,7 @@ const App = () => {
       setHelperText('');
     } else {
       setUsernameError(true);
-      setHelperText('The Username is less than 6 Character');
+      setHelperText('The Username is less than 6 Character, Please add more character');
     }
   }
 
@@ -38,10 +38,11 @@ const App = () => {
       setHelperText('');
     } else {
       setPasswordError(true);
-      setHelperText('Invalid Password. Please try again.');
+      setHelperText('The Password is less than 6 Character, Please add more character');
+      
     }
   }
-
+  
   const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name } = e.target;
 
@@ -56,12 +57,21 @@ const App = () => {
         break;
     }
   }
-  /**const handleSubmit:React.MouseEvent<HTMLAnchorElement, MouseEvent> = (e) => {
-    
-
+  const handleSubmit = (e:React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
+    if (usernameError || passwordError) {
+      setIsButtonDisabled(false)
+    }else{ 
+      setIsButtonDisabled(true)
+    }
+    
+    
   }
-  */
+  useEffect(() => {
+    
+  });
+
+  
   return (
     <div className="row justify-content-center">
           <div className="col-lg-4 col-md-6 col-sm-8">
@@ -71,11 +81,13 @@ const App = () => {
                 <form >
                   
                   <div className="form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Username</label>
+                    <label >Username</label>
                     <input type="username" 
                             className="form-control" 
                             id="username" 
+                            name="username"
                             placeholder="Enter Username" 
+                            onChange={e => handleChange(e)}
                     />
                     
                   </div>
@@ -84,7 +96,9 @@ const App = () => {
                   <input type="password" 
                           className="form-control" 
                           id="password" 
+                          name="password"
                           placeholder="Enter Password"
+                          onChange={e => handleChange(e)}
                           
                   />
                 </div>
@@ -92,16 +106,16 @@ const App = () => {
                 </div>
                 <button 
                       type="submit" 
-                      className="btn btn-primary"
-                      /**onClick={handleSubmit}
-                      disabled={state.isButtonDisabled}
-                      */
+                      className="btn btn-primary "
+                      onClick={e => handleSubmit(e)}
+                      disabled={isButtonDisabled}
+                      
                 >LOGIN</button>
-                <small className="form-text text-muted">Wrong Message</small>
+                <small className="form-text text-danger">{helperText}</small>
                 <hr/>
                 <button 
                       type="submit" 
-                      className="btn btn-primary"
+                      className="btn btn-danger"
 
                       
                 >CLEAR</button>
@@ -112,9 +126,7 @@ const App = () => {
                 This My Login App for react Hook projects <a href="https://github.com/patbpm/login-app-with-react-hooks">Github Repo</a>
               </div>
             </div>
-            <div className="text-center py-2">
-               <p>My name is Patickk and My Password is 252525</p>
-            </div>
+            
           </div>
     </div>
     
