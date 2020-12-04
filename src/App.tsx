@@ -20,38 +20,27 @@ const App = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [helperText, setHelperText] = useState('');
 
-  const validateUsername = (target:any) => {
-    if (target.value.length >= 6) {
-      setUsername(target.value);
+  useEffect(() => {
+    if (username.length >= 6 && password.length >= 6) {
       setUsernameError(false);
-      setHelperText('');
+      setPasswordError(false);
+      
     } else {
       setUsernameError(true);
-      setHelperText('The Username is less than 6 Character, Please add more character');
-    }
-  }
-
-  const validatePassword = (target:any) => {
-    if (target.value.length >= 6) {
-      setPassword(target.value);
-      setPasswordError(false);
-      setHelperText('');
-    } else {
       setPasswordError(true);
-      setHelperText('The Password is less than 6 Character, Please add more character');
       
     }
-  }
+  });
   
   const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name } = e.target;
 
     switch (name) {
       case 'username':
-        validateUsername(e.target);
+        setUsername(e.target.value);
         break;
       case 'password':
-        validatePassword(e.target);
+        setPassword(e.target.value);
         break;
       default:
         break;
@@ -61,16 +50,15 @@ const App = () => {
     e.preventDefault();
     if (usernameError || passwordError) {
       setIsButtonDisabled(false)
+      setHelperText('The Username or Password  is less than 6 Character, Please add more character');
     }else{ 
       setIsButtonDisabled(true)
+      setHelperText('');
     }
     
     
   }
-  useEffect(() => {
-    
-  });
-
+  
   
   return (
     <div className="row justify-content-center">
