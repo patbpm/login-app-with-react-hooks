@@ -2,15 +2,6 @@ import React, {useState, useEffect} from 'react';
 
 import './App.css';
 
-type State = {
-  username: string
-  password:  string
-  usernameError: boolean
-  passwordError: boolean
-  isButtonDisabled: boolean
-  helperText : String
-};
-
 
 const App = () => {
   const [username, setUsername] = useState('');
@@ -21,38 +12,26 @@ const App = () => {
   const [helperText, setHelperText] = useState('');
 
   useEffect(() => {
-    if (username.length >= 6) {
-      setUsernameError(false);
-            
-    } else {
-      setUsernameError(true);
-      
-    }
-  });
+    validateUsername(username);
+  }, [username]);
 
   useEffect(() => {
-    if (password.length >= 6) {
-      setPasswordError(false);
-      
-    } else {
-      
-      setPasswordError(true);
-      
-    }
-  });
+    validatePassword(password)
+  }, [password]);
   
-  const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name } = e.target;
+  const validateUsername = (target:any) => {
+    if (target.length >= 6) {
+      setUsernameError(false);
+    } else {
+      setUsernameError(true);
+    }
+  }
 
-    switch (name) {
-      case 'username':
-        setUsername(e.target.value);
-        break;
-      case 'password':
-        setPassword(e.target.value);
-        break;
-      default:
-        break;
+  const validatePassword = (target:any) => {
+    if (target.length >= 6) {
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);      
     }
   }
   const handleSubmit = (e:React.MouseEvent<Element, MouseEvent>) => {
@@ -90,7 +69,7 @@ const App = () => {
                             id="username" 
                             name="username"
                             placeholder="Enter Username" 
-                            onChange={e => handleChange(e)}
+                            onChange={(e) => setUsername(e.target.value)}
                     />
                     
                   </div>
@@ -101,7 +80,7 @@ const App = () => {
                           id="password" 
                           name="password"
                           placeholder="Enter Password"
-                          onChange={e => handleChange(e)}
+                          onChange={(e) => setPassword(e.target.value)}
                           
                   />
                 </div>
