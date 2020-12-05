@@ -21,12 +21,21 @@ const App = () => {
   const [helperText, setHelperText] = useState('');
 
   useEffect(() => {
-    if (username.length >= 6 && password.length >= 6) {
+    if (username.length >= 6) {
       setUsernameError(false);
+            
+    } else {
+      setUsernameError(true);
+      
+    }
+  });
+
+  useEffect(() => {
+    if (password.length >= 6) {
       setPasswordError(false);
       
     } else {
-      setUsernameError(true);
+      
       setPasswordError(true);
       
     }
@@ -56,6 +65,12 @@ const App = () => {
       setHelperText('');
     }
     
+    
+  }
+  const handleReset = (e:React.MouseEvent<Element, MouseEvent>) => {
+    e.preventDefault();
+    setUsername('');
+    setPassword('')
     
   }
   
@@ -104,6 +119,7 @@ const App = () => {
                 <button 
                       type="submit" 
                       className="btn btn-danger"
+                      onClick={e => handleReset(e)}
 
                       
                 >CLEAR</button>
